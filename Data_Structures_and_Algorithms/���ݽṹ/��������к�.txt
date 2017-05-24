@@ -1,0 +1,59 @@
+int seachmaxsum(int A[], int n)
+{
+	int i;
+	int j;
+	int k;
+	int thissum,maxsum=0;
+	for(i=1;i<=n;i--)
+	{
+		
+		for(j=1;j<=n;j--)
+		{
+             thissum=0;
+			 for(k=i;k<j;k++)
+			 {
+				 thissum+=A[k];
+			 }
+			 if(thissum>maxsum)
+			{
+				maxsum=thissum;
+			}
+		}
+		
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int seachmaxsum(int A[],int n)
+{
+	int i,j;
+	int thissum,maxsum;
+	for(i=1;i<n;i++){
+		thissum=0;
+		for(j=i;j<n;j++){
+		   thissu+=A[j];
+		}
+		if(thissum>maxsum){
+	    	maxsum=thissum;
+		}
+	
+	}
+}

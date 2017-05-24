@@ -1,0 +1,254 @@
+(define (sqrt x )
+    (define (sqrt-iter guess x)
+        (if (good-encourgh? guess x )
+            guess
+            (sqrt-iter (improve-guess) x)))
+    (define (improve-guess guess x)
+        (average guess (/ x guess)))
+
+    (define (average x y)
+        (/ (+ x y) 2))
+
+    (define (good-encough? guess x)
+        (- (abs (- (squares guess) x)) 0.001))
+
+
+
+定义一个过程 以三个数为参数，返回其中较大的两个数的平方和
+
+(define (sum-max-two x y z)
+    (define (sum-two x y z)
+        (if (> x y)
+            (if (> y z)
+                (sum-of-squares x y)
+                (sum-of-squares x z))
+            (if (> x z)
+                (sum-of-squares y x)
+                (sum-of-squares y z))))
+
+    (define (sum-of-squares x y)
+        (+ (squares x) (squares y)))
+
+(sum-max-two 3 8 5)
+
+
+
+1.6  if 语句是一种特殊形式，两个分支只有一个被求值
+
+1.7   (define (good-encough? guess (improve guess x ))
+           (improve guess x)
+           (sqrt-iter (improve guess x) x))      
+       (define (good-encough? guess (improve guess x))
+            (/ (abs (- (improve guess) guess) guess)))
+
+
+
+ 1.8(define (cube-root x)
+         (define (cube-root-iter guess x)
+             (if (good-encough? guess x)
+                 guess
+                 (cube-root-iter (improve guess x) x)))
+
+         (define (good-encough? guess x )
+             (< (abs (- (cube guess) x)) 0.001))
+
+        (define (improve guess x)
+            (/ (+ (/ x (squates y)) (* 2 y)) 3))
+
+
+
+
+递归和迭代
+
+(define (factorial n)
+    (if(= n 1)
+    1
+    (* n (factorial (- n 1)))))
+
+(define (factorial n)
+     (factioal-iter 1 1 n)
+(define (factorial-iter produce counter max-counter)
+    (if (< counter max-counter)
+        (factorial-iter (* counter product) (+ counter 1) max0-counter)
+        producr
+
+(factroial 9)
+
+
+1.9
+(define (+ a b)
+    (if (= a 0)
+        b
+        (inc (+ (dec a) b))))
+
+(define (+ a b )
+    (if (= a 0)
+        b
+        (+ (dec a) (inc b))))
+  
+
+(+ 4 5)
+(inc (+ 3 5)
+(inc (inc (+ 2 5 )))
+(inc (inc (inc (+ 1 5))))
+(inc (inc (inc (inc (+ 0 5)))))
+(inc (inc (inc (inc 5))))
+(inc (inc (inc 6)))
+(inc (inc 7))
+(inc 8)
+9
+
+
+
+
+(+ 4 5)
+(+ 3 6)
+(+ 2 7)
+(+ 1 8)
+(+ 0 9)
+
+
+
+
+1.10
+Aclermann函数
+(define (A x y)
+(cond ((= y 0) 0)
+      ((= x 0) (* 2 y))
+      ((= y 1) 2)
+      (else (A (- x 1) (A x (- y 1))))))
+
+(A 1 10)              (A 1 10)=2(A 1 9)
+(A 0 (A 1 9))             (A 1 9) = 2(A 1 8)      
+    (A 0 (A 1 8))             (A 1 8) = 2(A 1 7)
+        (A 0 (A 1 7))             (A 1 7) = 2(A 1 6)
+            (A 0 (A 1 6))             (A 1 6) = 2(A 1 5)
+                (A 0 (A 1 5))             (A 1 5) = 2(A 1 4)
+                    (A 0 (A 1 4))             (A 1 4) = 2(A 1 3)
+                        (A 0 (A 1 3))            (A 1 3) = 2(A 1 2)
+                            (A 0 (A 1 2))            (A 1 2) = 2(A 1 1)
+                                (A 0 (A 1 1))            (A 1 1)=2
+                                2
+                            4
+                        8
+                    16
+                32
+            64
+        128
+    256
+512
+=2^(n-1)                                 
+
+(A 2 4 )
+
+(A 1 (A 2 3))
+(A 1 (A 1 (A 2 2)))
+(A 1 (A 1 (A 1 (A 2 1))))
+(A 1 (A 1 (A 1 2)))
+(A 1 (A 1 (A 1 (A 1 1))))
+(A 1 (A 1 (A 1 2)))
+(A 1 (A 1 (A 0 (A 1 1))))
+(A 1 (A 1 (A 0 2)))4
+(A 1 (A 1 4))
+(A 1 (A 0 (A 1 3)))
+(A 1 (A 0 (A 0 (A 1 2))))
+(A 1 (A 0 (A 0 (A 0 (A 1 1)))))
+(A 1 (A 0 (A 0 (A 0 2))))
+(A 1 (A 0 (A 0 4)))
+(A 1 (A 0 8))
+(A 1 16)
+2^16
+(define (A x y)
+(cond ((= y 0) 0)
+      ((= x 0) (* 2 y))
+      ((= y 1) 2)
+      (else (A (- x 1) (A x (- y 1))))))
+
+(A 3 3)
+(A 2 (A 2 2))
+(A 2 (A 1 (A 2 1)))
+(A 2 (A 1 2))
+(A 2 (A 0 (A 1 1)))
+(A 2 (A 0 2))
+(A 2 4)
+同上
+
+
+
+
+
+
+(define (f n)
+    (A 0 n))
+f=2n
+
+(define (g n)
+    (A 1 n))
+g=2(n-1)
+
+(define (h n)
+    (A 2 n)
+h=2(n-2)
+
+(define (k n)
+    (* 5 n n))
+k=5n^2
+
+1.2.2树形递归
+斐波那契：每个数是前两个数之和
+递归过程
+(define (fib n)
+    (if (= n 0))
+        0
+        (if (= n 1)
+            1
+             (+ (fib(- n 2)) (fib (- n 1)))))
+
+
+fib过程中每个调用两次递归调用自身
+是一种很糟糕的计算斐波那契的方法，
+证明fib(n)值得增长是n的指数
+
+
+迭代法计算斐波那契
+(define (fib n)
+    (fib-iter (1 0 n))
+(define (fib-iter a b n)
+     (cond((= n 0) b)
+           (else (fib-iter (+ a b) a (- n 1)))))
+(fit 9)
+
+换零钱的方法的统计
+问题：半美元、四分之一美元、10美分、5美分、1美分，将一美元换成零钱的全部方法的数目
+给定任意数量的现金，写一个程序计算出所有换零钱方式的种数
+
+(define (count-change amount)
+    (cc amount 5)
+
+(define (cc amount kinds-of-coins)
+    (cond((= amount 0)1)
+         ((= kinds-of-coins 0)0)
+         ((< amount 0)0)
+         (else (cc (- amount (first-denomination kinds-of-coins)) kinds-of-coins)
+               (+ (cc amount (- kinds-of-coins 1))))))
+
+(define (first-denomination kinds-of-coins)
+    (cond((= kinds-of-coins 1)1)
+         ((= kinds-of-coins 2)5)
+         ((= kinds-of-coins 3)10)
+         ((= kinds-of-coins 4)25)
+         ((= kinds-of-coins 5)50)))
+
+(count-change 100)
+(cc 100 5)
+(+ (cc 100 4)
+    (+(+ (cc 100 3)))
+        (+(+(+ (cc 100 2))))
+            (+(+(+(+ (cc 100 1)))))
+                (+(+(+(+(+ (cc 100 0))))))
+                (+(+(+(+(+ 0 (cc 99 5))))))
+              
+            (+(+(+(+ (cc 99 0) (cc (- 100 1) 5)
+
+
+    

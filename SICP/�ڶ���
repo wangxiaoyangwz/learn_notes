@@ -1,0 +1,35 @@
+2.1 线性递归和迭代
+(1)  
+n!=n*(n-1)
+(define (factorial n)
+    (if (= n 0)
+        1
+        (* (factorial (- n 1)))))
+(2)
+product 保持变动
+product<---counter *product
+counter<---counter + 1
+
+(define (factorial n)
+    (factorial-iter 1 1 n)
+
+(define (factorial-iter product counter max-counter)
+    (if (< counter max-counter)
+        (factorial-iter (* product counter) (+ counter 1) max-counter)
+        product))
+
+(factorial 6)
+
+练习
+1.9 
+下面的几个过程定义了一种加起连个整数的方法 全部都基于过程Inc dec 
+(define (+ a b)
+    (if (= a 0)
+        b
+        (inc (+ (dec a) b))))
+(define (+ a b)
+    (if (= a 0)
+        b
+        (+ (dec b) (inc a))))
+
+(define (+ a b)

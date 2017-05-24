@@ -1,0 +1,335 @@
+//多项式ADT链表结构的定义   P40
+typedef struct PolyNode *Polynomial ;//链表结构类型的声明
+struct PolyNode{         //
+	int coef;//系数
+	int expen;//指数
+	PtrToNode link;//指针域
+}
+//线性表的链式存储结构定义 P34
+typedef struct LNode *List;
+struct LNode{
+	ElementType Data; // 
+	List Next;
+}
+struct Lnode L;
+List Ptrl;
+
+//数组结构（线性表）定义  P39
+typedef struct LNode *List;
+struct LNode{
+	ElementType Data[MAXSIZE];
+	int last;
+}
+sturct LNode L;//定义一个线性表L
+list Ptrl;
+
+//建立空的顺序表
+List MarkEmpty()
+{
+	List Ptrl;//声明一个线性表，Ptrl
+	Ptrl=(list)malloc(sizeof(struct LNode));//malloc创建List结构，返回指向该结构的指针
+	Ptrl->Last=-1;  //Ptrl->Last表示取last的值，last指的是位置(下标号)
+	return Ptrl;  //Ptrl是指针（指向该结构的）
+}
+
+//Find例程
+//平均时间性能是O（n）
+int Find(ElementType X,List Ptrl)
+{
+	int i;
+	while(i<Ptrl->Last&&Ptrl->Data[i]!=X)
+	    i++;
+	if (i>Ptrl->last)
+		return -1;
+	return i;
+}
+
+//Insert 
+//平均移动次数n/2,平均时间性能O（n）
+void Insert(ElementType X,List Ptrl,int i)
+{
+	int j;
+	//判断表是否已满？
+	if(Ptrl->last==MAXSIZE-1)
+		printf("已满");
+		return;
+	//判断i是否合法
+	if(i<1||i>Ptrl->Last+2)
+	    printf("i 不合法" );
+	    return；
+	//向后移动i-1以后的（包括）元素,从后面开始移动
+	for(j=Ptrl->last;j<i-1;j-- )
+	{
+		Ptrl->Data[j+1]=Ptrl->Data[j];//当前元素的值赋给下一个位置
+	} 
+	Ptrl->Data[i-1]=X;//Insert X
+	Ptrl->last=Ptrl->last+1;//表长加一，last仍然指向最后一个元素
+	return;
+}    
+
+
+//Delete
+//平均移动次数（n-1）/2
+//平均时间性能O（n）
+void Delete(int i,List Ptrl)
+{
+	int j;
+	//判断i的合法性
+	if(i<1||i>Ptrl->last+1)
+		printf("i不合法");
+		return;
+	//判断空表
+		？
+	//移动i-1后面的所有元素
+	for(j=i;j<Ptrl->last;j++)
+	{
+        Ptrl->Data[j-1]=Ptrl->Data[j];
+	}
+	Ptrl->Last=Ptrl->Last-1;//Last仍然指向最后元素，元素少了一个
+}
+线性表的链式存储(链表)
+//链表结构的定义
+   typedef struct LNode *List;
+   struct LNode {
+   	ElementType Data;
+   	List Next;
+   }
+   struct Lnode L;
+   List Ptrl;
+
+
+/*the list length */
+int length(List Ptrl)
+{
+	int p;
+	p=Ptrl;//p指向表的第一个节点
+	int j;
+	while(p)
+	{
+		p=p->next;//p=NULL，表明p处在最后的位置
+		j++;//lenghe=last(最后的位置)+1
+	}
+}
+时间复杂度是表的长度O(N)
+
+/*KindKth返回的是元素*/
+List FindKth(int K,Lisk Ptrl)//k是序号
+{
+	List P=Ptrl;
+	int i=1;
+	while(P!=NULL&&i<k)//条件是1.表不空2 .i<k
+	{
+		P=P->Next;
+		i++;
+	}
+	if(i==k)
+		return p;
+	else
+		return NULL;
+}
+
+/*Find按值查找*/
+int Find(ElementTpye X,List Ptrl)//1.x是一个值 2.头指针
+{
+	Position P;
+	P=Ptrl;//头节点表明节点的位置
+	while(P!=NULL&&P->Element!=X)//1.表不空2.没找到！=x
+	{              可写为P->Data
+		P=P->next;//p是某节点的地址
+	}
+	return P;1.p=NULL 2。p是找到的节点的位置
+}
+
+/*Insert*/
+List Insert(ElementType X,int i,List PtrL)1.插入的值2.插入的位置3.插入那个链表的头指针
+{
+	List p,s;
+	if(i==1){//如果插在头表i=1处
+	s=(List)malloc(sizeof(struct LNode));
+	s->Data=X;
+	s->Next=PtrL;
+	return s;//返新表回头指针
+	}
+	p=FindKth(i-1,PtrL);//return p
+	if(p==NULL){//i-1不存在
+	    printf("参数i错误")；
+	    return NULL;
+	}else{
+	    s=(List)malloc(sizeof(struct LNode));
+	    s->Data=X;
+	    s->Next=P->Next;//构造的新节点插在i-1个结点后
+	    p->Next=s;
+	    return PtrL;//返回新表头指针
+	}平均查找次数n/2
+
+}
+
+/*Delete*/
+List Delete(int i,List PtrL)
+{
+	List p,s;
+	if(i==1){//删除第一个结点
+	s=ptrL;//声明s
+	if(PtrL!=NULL)//ptr为空
+	PtrL=PtrL->Next;
+	free(s);
+	return PtrL;
+	}
+	p=KindKth(i-1,List PtrL);//找到i-1位置
+	if(P==NULL){
+	    printf("第%d个节点不存在",i-1)；
+	    return NULL;
+	}else if(p->Next==NULL){
+	    printf("第%d个节点不存在",i)；
+	}else{
+	    s=p->Next;
+	    p->Next=s->Next;
+	    free(s);
+	    return PtrL;
+	}
+
+	}
+}平均时间复杂性n/2
+
+
+/*广义表*/
+
+typedef struct GNode *GList;//
+struct GNode{
+	int Tag;
+	union{
+	    Elememtype Data;
+	    GList SubList;
+	}URegion;
+	GList Next;
+};
+
+/*堆栈stack*/
+Stack CreateStack(int MaxSize)//生成空堆栈，最大长度MaxSize
+int IsFull(Stack S,int MaxSize)//判断堆栈S是否已满
+void Push(Stack S,ElementType item)//元素item压入堆栈
+int IsEmpty(Stack S)//判断堆栈S是否为空
+ElementType Pop(Stack S)//删除栈顶元素
+
+/*堆栈顺序存储实现（数组）*/
+#define MaxSize//存储数据元素的最大个数
+typedef struct SNode *Stack;
+struct SNode{
+	ElementType Data[MaxSize];//一维数组
+	int Top;//栈顶元素的位置数组下标
+}；
+/*数组入栈*/
+void Push(Stack PtrS,ElementType item){
+	if(PtrS->Top==MaxSize-1){//数组下标从零开始 IsFull(Stack S,MaxSize)
+	    printf("堆栈满")；
+	    return ;
+	}else
+	    PtrS->Data[++(Ptrl->Top)]=item;//1.item赋给Top++ 2.Top++ 
+	    return;
+	}
+}
+
+/*数组出栈*/
+ElementType Pop(Stack PtrS){
+	if(top==-1){   //ISempty(Stack S)
+	    printf("堆栈空")；
+	    return ERROR；
+	}else{
+	    return (PtrS->Data[(PtrS->Top)--]);//1.返回一个下标为top的值
+	                                       //2.top--
+	}
+}
+
+/*一个数组实现两个堆栈*/
+从两头向中间移动，栈顶指针相遇，已满
+#define MaxSize//存储数据元素的最大个数
+struct Dstack{
+	ElementType Data[MaxSize];
+	int Top1;
+	int Top2;
+}S;
+s.top1=-1;
+s.top2=MaxSize;
+
+void Push(struct Dstack *PtrS,ElementType item,int Tag)//tag指示对哪个栈进行操作
+{
+	if(PtrS->Top2-PtrS->Top1==1){//先判断堆栈是否满了
+	    printf("堆栈满")；
+	}
+	if(Tag==1){
+	    PtrS->Data[++(PtrS->Top1)]=item;
+	}else{
+	    PtrS->Data[--(PtrS->Top2)]=item;//第二个堆栈top在减小
+	}
+}
+
+ElementType Pop(struct Dstack *PtrS,int Tag)
+{
+	if(Tag==1){//先判断对那个堆栈操作
+	    if(PtrS->Top1==-1){
+	        printf("堆栈满")；
+	        return NULL;
+	    }else{
+	        return PtrS->Data[(PtrS->Top1)--];
+	    }
+	}else{
+	    if(PtrS->Top2==MaxSize){
+	        printf("堆栈满")；
+	        return NULL;
+	    }else{
+	        return PtrS->Data[(PtrS->Top2)++];
+	    }
+	}
+}
+
+/*堆栈的链式存储*/
+typedef struct SNode *Stack;
+struct SNode{
+	ElementType Data;//
+	struct SNode *Next;
+}
+/*堆栈链式存储Push*///不必判断链表是否已满，因为是申请链表空间，插入，大小不固定
+void Push(ElementType item,Stack S)//参数1.item2.S
+{
+	struct SNode *TmpCell;//声明TmpCell
+	TmpCell=(struct SNode *)malloc(sizeof(struct SNode));
+	TmpCell->ElementType=item;
+	TmpCell->Next=S->Next;
+	S->Next=TmpCell;
+}
+
+/链表表现Pop*/
+
+ElementType Pop(Stack S)//删除并返回堆栈S的栈顶元素
+{
+	struct SNode *FirstCell;
+	ElementType ToElem;
+	if(IsEmpty(Stack S)){
+	    printf("堆栈空")；
+	    return NULL;
+	}else{
+	    FirstCell=S->Next；//结点赋值给一个变量	   
+	    S->Next=FirstCell->Next;//堆栈头节点不变，top在后面
+	    TopElem=FirstCell->Element;
+	    free(FirstCell);
+	    return TopElem;//返回栈顶元素
+
+	}
+}
+
+/*队列Queue*/
+Queue CreatQueue(int MaxSize)//生成长度为maxsize的队列
+int IsFullQ(Queue Q,int MaxSize)
+void AddQ(Queue Q,ElementType item)
+int IsEmptyQ(Queue Q)
+ElementType DeleteQ(Queue Q)
+
+//顺序存储
+#define MaxSize
+struct QNode{
+	ElementType Data[MaxSize];
+	int rear;
+	int front;
+};
+typedef struct QNode *Queue;
+
