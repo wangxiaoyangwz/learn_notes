@@ -1,0 +1,27 @@
+int serchX(int n,int list[],int N)
+{
+    int left=0;
+	int right=N-1;
+	int X;
+	while(left<right)
+	{
+		int M=(left+right)/2;
+
+		if(list[M]==X)
+		{
+			return m;
+		}
+		if(list[M]>X)
+		{
+            right=M; 
+		}
+		if(list[M]<x)
+		{
+			left=M;
+		}
+		return -1;
+	}
+
+
+
+
