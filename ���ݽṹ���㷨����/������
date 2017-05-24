@@ -1,0 +1,131 @@
+表  栈  队列
+抽象数据类型（ADT）
+对表进行有效操作
+栈ADT及其在递归方面的应用
+队列ADT及其爱操作系统中和算法设计中的应用
+
+3.1 抽象数据结构（ADT）
+是操作的集合
+是模块化设计的扩充
+操作只在程序中编写一次
+要在程序中的其他部分使用--通过函数的调用进行
+改变操作的细节--只修改运行这些操作的例程
+
+
+3.2 表ADT
+空表
+前驱（元）
+后继（元）
+PrintList
+MarkEmpty
+Find---->返回关键字首次出现的（位置）
+Insert-->从表的某个位置插入
+Delete-->从表的某个位置删除
+FindKth->返回某个位置上的（元素）（作为参数给出）
+Next------>一个位置为参数，返回后继元的（位置）
+Previous-->                返回前驱元的（位置）
+
+3.2.2链表
+可以在内存中不连续存储
+包含表元素和next指针（指向该元素的后续元结构的）
+最后一个单元的next指针指向NULL
+指针变量：包含地址的变量（存储另外的某个数据）
+P为指针，那么P的值是主存的一个位置
+表头，哑结点：
+FindPrevious函数返回一个位置（要删除的表元的前驱元的位置）
+
+Position FindPrevious(ElementTpy X,List L)
+{
+	Position P;
+	P=L;
+	while(P->next!=NULL&&P->next!=X)
+	{
+		P=P->next;
+	}
+	return P;
+}
+
+
+
+
+
+
+
+
+
+//测试一个链表是否为空表
+/*return ture if L is NULL*/
+int IsEmpty(List L)
+{
+	return L->next==NULL;
+}
+/*测试当前位置是否是链表的末尾
+return ture if P is the last position in list
+*/
+
+int IsLast(Position P,List L)
+{
+    return P->next==NULL;
+}
+
+/*find 例程
+return Position of X in L;Null is not found*/
+
+Position Find(ElementType X,List L)
+{
+    Position P;
+    P=L->next;
+    while(P!=NULL&&P->Element!=X)
+    {
+    	P=P->next;
+    }
+    return P;//P is type position
+}
+
+
+Void Delete(ElementType X,List L)
+{
+	Position P,TmpCell;
+	P=FindPrevious(X,L);
+
+	if(!Islast(P,L))
+	{
+		TemCell=P->next;
+		P->next=TemCell->next;
+		Free(TemCell);
+	}
+}
+
+
+
+/*Insert (after legal Position P)*/)
+Void Insert(ElementType X,List L,Position P)
+{
+	Position TemCell;
+    TemCell=malloc(sizeof(struct Node));//调用malloc函数从系统得到一个新单元
+    if(TmeCell==NULL)
+    	FatalError("Out of space");
+
+    TemCell->Element=X;//给单元Temcell赋值
+    TemCell->next=P->next;
+    P->next=TemCell;
+}
+
+
+/*delect list*/
+
+Void DeleteList(List L)
+{
+	Position P,Tem;
+	P=L->next;
+	L->next=NULL;
+	while(P!=NULL)
+	{
+		Tem=P->next;
+		Free(P);
+		P=Tem;
+	}
+}
+
+
+3.2.5 双链表
